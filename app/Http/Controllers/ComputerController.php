@@ -34,17 +34,30 @@ class ComputerController extends Controller
     }
 
     
-    public function store(Request $request)
-    {
-        $url = env('URL_SERVER_API');
+   
+public function store(Request $request)
+{
+    $request->validate([
+        'number' => 'required',
+        'brand' => 'required|string|max:100',
+        'imagen' => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
+    ]);
 
-        Http::post(
-            $url . '/computer/store',
-            $request->all()
-        );
+    $url = env('URL_SERVER_API');
 
-        return redirect()->route('computer.index');
-    }
+    $file = $request->file('imagen');
+
+    $response = Http::attach(
+        'imagen',
+        file_get_contents($file->getRealPath()),
+        $file->getClientOriginalName()
+    )->post($url . '/computer/store', [
+        'number' => $request->number,
+        'brand' => $request->brand,
+    ]);
+
+    return redirect()->route('computer.index');
+}
 
     
     public function show($id)

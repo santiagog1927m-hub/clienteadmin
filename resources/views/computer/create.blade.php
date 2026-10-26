@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -14,13 +15,11 @@
 
         </div>
 
-
         <div class="card-body">
 
-            <form action="{{ route('computer.store') }}" method="POST">
+            <form action="{{ route('computer.store') }}" method="POST" enctype="multipart/form-data">
 
                 @csrf
-
 
                 <div class="mb-3">
 
@@ -36,7 +35,6 @@
 
                 </div>
 
-
                 <div class="mb-3">
 
                     <label class="form-label">
@@ -51,12 +49,25 @@
 
                 </div>
 
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Imagen del computador:
+                    </label>
+
+                    <input type="file"
+                           name="imagen"
+                           class="form-control"
+                           accept="image/*"
+                           required>
+
+                </div>
 
                 <div class="d-flex gap-2">
 
                     <a href="{{ route('computer.index') }}"
                        class="btn btn-secondary">
-                        Atras
+                        Atrás
                     </a>
 
                     <button type="submit"
@@ -75,3 +86,4 @@
 </div>
 
 @endsection
+

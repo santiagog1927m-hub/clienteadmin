@@ -1,11 +1,12 @@
 
+
 @extends('layouts.app')
 
 @section('content')
 
 <div class="container mt-2 mb-5">
 
-    <!-- ENCABEZADO -->
+    
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <h1 class="mb-0" style="font-size: 38px; font-weight: 500;">
@@ -19,7 +20,7 @@
 
     </div>
 
-    <!-- TABLA DE COMPUTADORES -->
+    
     <div class="table-responsive">
 
         <table id="idProduct"
@@ -29,6 +30,7 @@
                 <tr>
                     <th>Número</th>
                     <th>Marca</th>
+                    <th>Imagen</th>
                     <th style="min-width: 250px;">Acciones</th>
                 </tr>
             </thead>
@@ -39,13 +41,24 @@
 
                     <tr>
 
-                        <!-- NÚMERO -->
+                        
                         <td>{{ $computer['number'] ?? '' }}</td>
 
-                        <!-- MARCA -->
+                        
                         <td>{{ $computer['brand'] ?? '' }}</td>
 
-                        <!-- ACCIONES -->
+                        
+                        <td>
+                           @if (!empty($computer['imagen_url']))
+                            <img src="{{ $computer['imagen_url'] }}"
+                                alt="Imagen del computador"
+                                width="100">
+                            @else
+                                Sin imagen
+                                    @endif
+                        </td>
+
+                        
                         <td class="text-nowrap">
 
                             <a href="{{ route('computer.show', $computer['id']) }}"
@@ -83,7 +96,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="3" class="text-center">
+                        <td colspan="4" class="text-center">
                             No hay computadores registrados.
                         </td>
                     </tr>
@@ -99,4 +112,5 @@
 </div>
 
 @endsection
+
 
